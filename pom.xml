@@ -70,11 +70,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.itau.dailybanking</groupId>
-            <artifactId>cancelamento-service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>com.amazon.device.tools.build</groupId>
             <artifactId>builder</artifactId>
             <version>1.3.1</version>
