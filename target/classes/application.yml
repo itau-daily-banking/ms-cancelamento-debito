@@ -1,0 +1,23 @@
+spring:
+  profiles:
+    active: local
+  application:
+    name: cancelamento-service
+
+aws:
+  region: us-east-1
+
+logging:
+  level:
+    root: INFO
+    com.itau.dailybanking.cancelamento: DEBUG
+    software.amazon.awssdk: WARN
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
