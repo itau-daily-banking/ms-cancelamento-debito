@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cancelamento-deployment
+  labels:
+    app: cancelamento-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cancelamento-service
+  template:
+    metadata:
+      labels:
+        app: cancelamento-service
+    spec:
+      containers:
+        - name: cancelamento-service
+          image: 011706314791.dkr.ecr.us-east-1.amazonaws.com/itau-daily-banking/ms-cancelamento-debito
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "prod"
+            - name: AWS_REGION
+              value: "us-east-1"
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
