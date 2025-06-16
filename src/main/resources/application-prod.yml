@@ -1,4 +1,4 @@
 aws:
   sqs:
     queue-name: cancelamento-queue
-    queue-url: https://sqs.sa-east-1.amazonaws.com/123456789012/cancelamento-queue
+    queue-url: https://sqs.us-east-1.amazonaws.com/011706314791/cancelamento-queue

@@ -9,6 +9,7 @@ import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
+import software.amazon.awssdk.services.sqs.SqsClientBuilder;
 
 import java.net.URI;
 
@@ -20,20 +21,26 @@ public class SqsConfig {
     @Value("${aws.region}")
     private String region;
 
-    @Value("${aws.sqs.endpoint}")
+    @Value("${aws.sqs.endpoint:}")
     private String endpoint;
 
     @Bean
     public SqsClient sqsClient() {
         log.info("🔌 Criando SqsClient → region={} endpointOverride={}", region, endpoint);
-        return SqsClient.builder()
-                .region(Region.of(region))
-                .credentialsProvider(
-                        StaticCredentialsProvider.create(
-                                AwsBasicCredentials.create("test", "test")
-                        )
-                )
-                .endpointOverride(URI.create(endpoint))
-                .build();
+
+        SqsClientBuilder builder = SqsClient.builder()
+                .region(Region.of(region));
+
+        if (endpoint != null && !endpoint.isBlank()) {
+            builder
+                    .endpointOverride(URI.create(endpoint))
+                    .credentialsProvider(
+                            StaticCredentialsProvider.create(
+                                    AwsBasicCredentials.create("test", "test")
+                            )
+                    );
+        }
+
+        return builder.build();
     }
 }
