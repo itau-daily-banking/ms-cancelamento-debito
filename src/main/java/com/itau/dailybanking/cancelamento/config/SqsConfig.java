@@ -28,19 +28,14 @@ public class SqsConfig {
     public SqsClient sqsClient() {
         log.info("🔌 Criando SqsClient → region={} endpointOverride={}", region, endpoint);
 
-        SqsClientBuilder builder = SqsClient.builder()
+        var builder = SqsClient.builder()
                 .region(Region.of(region));
 
         if (endpoint != null && !endpoint.isBlank()) {
-            builder
-                    .endpointOverride(URI.create(endpoint))
-                    .credentialsProvider(
-                            StaticCredentialsProvider.create(
-                                    AwsBasicCredentials.create("test", "test")
-                            )
-                    );
+            builder = builder.endpointOverride(URI.create(endpoint));
         }
 
         return builder.build();
     }
+
 }
