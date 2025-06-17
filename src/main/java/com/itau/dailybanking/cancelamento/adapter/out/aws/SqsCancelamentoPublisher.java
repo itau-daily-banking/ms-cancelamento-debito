@@ -30,7 +30,7 @@ public class SqsCancelamentoPublisher implements CancelamentoEventPublisher {
         this.endpoint = endpoint;
         this.mapper = mapper;
 
-        log.info("📨 SqsCancelamentoPublisher inicializado → endpoint={} queueUrl={}", endpoint, queueUrl);
+        log.info("SqsCancelamentoPublisher inicializado → endpoint={} queueUrl={}", endpoint, queueUrl);
     }
 
     @Override

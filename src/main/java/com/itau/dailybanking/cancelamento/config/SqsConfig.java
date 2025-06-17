@@ -31,7 +31,6 @@ public class SqsConfig {
         var builder = SqsClient.builder()
                 .region(Region.of(region));
 
-        // 🔥 Ambiente Local (LocalStack)
         if (endpoint != null && !endpoint.isBlank()) {
             builder = builder
                     .credentialsProvider(
@@ -41,7 +40,6 @@ public class SqsConfig {
                     )
                     .endpointOverride(URI.create(endpoint));
         } else {
-            // 🔥 Ambiente Prod (AWS)
             builder = builder.credentialsProvider(DefaultCredentialsProvider.create());
         }
 
